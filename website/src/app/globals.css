@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --color-navy: #1A1A54;
+  --color-navy-light: #2A2A64;
+  --color-navy-dark: #0F0F3A;
+  --color-surface: #E4E4E4;
+  --color-accent: #3B82F6;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: #111827;
+  }
+
+  ::selection {
+    background-color: #1A1A5433;
+    color: #1A1A54;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

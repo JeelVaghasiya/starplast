@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Star Plast – Admin Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+
+  <!-- ═══ MAIN ═══ -->
+  <div class="main-content">
+    <div class="dash-header">
+      <div>
+        <h1>Dashboard</h1>
+        <p>Manage and update your industrial catalog items.</p>
+      </div>
+      <a href="add-product.html" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+        Add New Product
+      </a>
+    </div>
+
+    <!-- Product Table -->
+    <div class="data-card">
+      <div class="table-header">
+        <span>Product</span>
+        <span>Actions</span>
+      </div>
+
+      <div id="productListContainer">
+        <!-- Products injected by script.js -->
+        <p style="color:#666; padding:20px;">Loading...</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
