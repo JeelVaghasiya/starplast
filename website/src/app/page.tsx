@@ -135,8 +135,7 @@ export default function Home() {
               <img
                 src={getFramePath(1)}
                 alt="Star Plast Hero"
-                className="w-full h-full object-cover"
-                style={{ objectFit: 'cover' }}
+                className="w-full h-full object-contain md:object-cover"
                 fetchPriority="high"
               />
             )}
