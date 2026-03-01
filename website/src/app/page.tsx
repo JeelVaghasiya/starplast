@@ -130,9 +130,20 @@ export default function Home() {
         {/* ════════════ HERO – Scrollytelling ONLY ════════════ */}
         <div ref={heroRef} className="relative" style={{ height: "300vh" }}>
           <section className="sticky top-0 w-full h-screen overflow-hidden bg-[#E4E4E4]">
+            {/* Static first frame for instant perceived load */}
+            {!imagesLoaded && (
+              <img
+                src={getFramePath(1)}
+                alt="Star Plast Hero"
+                className="w-full h-full object-cover"
+                style={{ objectFit: 'cover' }}
+                fetchPriority="high"
+              />
+            )}
+            {/* Canvas activates once all frames are loaded */}
             <canvas
               ref={canvasRef}
-              className="w-full h-full"
+              className={`w-full h-full absolute inset-0 transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
               style={{ imageRendering: "auto" }}
             />
           </section>

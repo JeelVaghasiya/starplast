@@ -262,7 +262,7 @@ export default function ProductDetailClient({
                                 </p>
                                 <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden bg-white w-fit">
                                     <button
-                                        onClick={() => setQuantity(quantity <= 50 ? 1 : quantity - 50)}
+                                        onClick={() => setQuantity(Math.max(0, quantity - 1))}
                                         className="px-3 py-2 text-gray-400 hover:bg-gray-50 transition-colors text-sm"
                                     >
                                         -
@@ -270,11 +270,11 @@ export default function ProductDetailClient({
                                     <input
                                         type="number"
                                         value={quantity}
-                                        onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 0))}
+                                        onChange={(e) => setQuantity(Math.max(0, parseInt(e.target.value) || 0))}
                                         className="w-16 text-center font-bold text-[#1A1A54] text-sm focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                     />
                                     <button
-                                        onClick={() => setQuantity(quantity < 50 ? 50 : quantity + 50)}
+                                        onClick={() => setQuantity(quantity + 1)}
                                         className="px-3 py-2 text-gray-400 hover:bg-gray-50 transition-colors text-sm"
                                     >
                                         +
@@ -285,10 +285,11 @@ export default function ProductDetailClient({
                             {/* Add to Inquiry Button */}
                             <button
                                 onClick={handleAddToInquiry}
-                                className="w-full bg-[#1A1A54] hover:bg-[#2A2A64] text-white font-bold tracking-[0.1em] uppercase py-4 rounded-lg flex items-center justify-center gap-3 transition-colors text-sm shadow-lg shadow-[#1A1A54]/20"
+                                disabled={quantity === 0}
+                                className="w-full bg-[#1A1A54] hover:bg-[#2A2A64] disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold tracking-[0.1em] uppercase py-4 rounded-lg flex items-center justify-center gap-3 transition-colors text-sm shadow-lg shadow-[#1A1A54]/20"
                             >
                                 <ShoppingCart className="w-5 h-5" />
-                                Add to Inquiry
+                                {quantity === 0 ? 'Select Quantity' : 'Add to Inquiry'}
                             </button>
                         </div>
 
@@ -309,12 +310,16 @@ export default function ProductDetailClient({
                             </div>
                             <div className="bg-white rounded-lg border border-gray-200 p-5">
                                 <p className="text-[10px] font-bold text-gray-400 tracking-[0.15em] uppercase mb-1">Weight</p>
-                                <p className="text-xl font-black text-[#1A1A54]">
+                                <p className="text-xl font-black text-[#1A1A54] flex flex-wrap items-baseline">
                                     {product.weight.length > 0 && product.weight[0] !== "" ? (
                                         <>
-                                            {product.weight.join('/')}
+                                            {product.weight.map((w, i) => (
+                                                <span key={i}>
+                                                    {w}{i < product.weight.length - 1 && <span className="mx-0.5">/</span>}
+                                                </span>
+                                            ))}
                                             {product.weightTolerance && product.weightTolerance !== "± 0g" && (
-                                                <span className="text-sm font-normal text-gray-400 ml-1.5">{product.weightTolerance}</span>
+                                                <span className="text-sm font-normal text-gray-400 ml-1.5 whitespace-nowrap">{product.weightTolerance}</span>
                                             )}
                                         </>
                                     ) : "-NA-"}

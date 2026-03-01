@@ -209,7 +209,13 @@ export default function CartPage() {
                                         <div className="flex items-center gap-3">
                                             <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden bg-white">
                                                 <button
-                                                    onClick={() => updateQuantity(item.id, item.quantity <= 50 ? 1 : item.quantity - 50, item.selectedColor, item.weight)}
+                                                    onClick={() => {
+                                                        if (item.quantity <= 1) {
+                                                            removeItem(item.id, item.selectedColor, item.weight);
+                                                        } else {
+                                                            updateQuantity(item.id, item.quantity - 1, item.selectedColor, item.weight);
+                                                        }
+                                                    }}
                                                     className="px-3 py-2 text-gray-400 hover:bg-gray-50 transition-colors text-sm"
                                                 >
                                                     -
@@ -217,11 +223,18 @@ export default function CartPage() {
                                                 <input
                                                     type="number"
                                                     value={item.quantity}
-                                                    onChange={(e) => updateQuantity(item.id, Math.max(1, parseInt(e.target.value) || 0), item.selectedColor, item.weight)}
+                                                    onChange={(e) => {
+                                                        const val = parseInt(e.target.value) || 0;
+                                                        if (val <= 0) {
+                                                            removeItem(item.id, item.selectedColor, item.weight);
+                                                        } else {
+                                                            updateQuantity(item.id, val, item.selectedColor, item.weight);
+                                                        }
+                                                    }}
                                                     className="w-16 text-center font-bold text-[#1A1A54] text-sm focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                                 />
                                                 <button
-                                                    onClick={() => updateQuantity(item.id, item.quantity < 50 ? 50 : item.quantity + 50, item.selectedColor, item.weight)}
+                                                    onClick={() => updateQuantity(item.id, item.quantity + 1, item.selectedColor, item.weight)}
                                                     className="px-3 py-2 text-gray-400 hover:bg-gray-50 transition-colors text-sm"
                                                 >
                                                     +
